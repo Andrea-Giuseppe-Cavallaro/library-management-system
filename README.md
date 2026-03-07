@@ -23,7 +23,7 @@ Windows (PowerShell)
 .venv\Scripts\activate
 ```
 
-Per uscire dall'ambiente virtuale(uguale per tutti i sistemi operativi):
+Per uscire dall'ambiente virtuale (uguale per tutti i sistemi operativi):
 
 ```bash
 deactivate
