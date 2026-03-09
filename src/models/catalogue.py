@@ -1,47 +1,49 @@
+from .book import Book
+
 class Catalogue:
-    _instance = None  # type: ignore
+    __instance = None
 
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
+    def __new__(cls) -> "Catalogue":
+        if cls.__instance is None:
+            cls.__instance = super().__new__(cls)
+        return cls.__instance
 
-    def __init__(self):
-        if not hasattr(self, "_bookList"):
-            self._bookList = []
+    def __init__(self) -> None:
+        if not hasattr(self, "__booklist"):
+            self.__booklist: list[Book] = []
 
-    def get_bookList(self):
-        return self._bookList
+    def get_booklist(self) -> list[Book]:
+        return self.__booklist.copy()
 
-    def set_bookList(self, bookList):
-        self._bookList = bookList
+    def set_booklist(self, booklist: list[Book]) -> None:
+        self.__booklist = booklist.copy()
 
-    def add_book(self, book):
-        self._bookList.append(book)
+    def add_book(self, book: Book) -> None:
+        self.__booklist.append(book)
 
-    def remove_book(self, book):
-        if book in self._bookList:
-            self._bookList.remove(book)
+    def remove_book(self, book: Book) -> None:
+        if book in self.__booklist:
+            self.__booklist.remove(book)
         else:
-            print("Book not found.")
+            raise ValueError("Book not found in catalogue.")
 
-    def search_by_title(self, title: str) -> list:
-        results = [book for book in self._bookList if book.get_title() == title]
+    def search_by_title(self, title: str) -> list[Book]:
+        results = [book for book in self.__booklist if book.title == title]
         if not results:
-            print("Book not found.")
+            print ("Book not found.")
         return results
 
-    def search_by_author(self, author: str) -> list:
-        results = [book for book in self._bookList if book.get_author() == author]
+    def search_by_author(self, author: str) -> list[Book]:
+        results = [book for book in self.__booklist if author in book.authors]
         if not results:
-            print("Book not found.")
+            print ("Book not found.")
         return results
 
-    def search_by_language(self, language: str) -> list:
-        results = [book for book in self._bookList if book.get_language() == language]
+    def search_by_language(self, language: str) -> list[Book]:
+        results = [book for book in self.__booklist if language in book.languages]
         if not results:
-            print("Book not found.")
+            print ("Book not found.")
         return results
 
-    def __str__(self):
-        return f"Available books: {[str(book) for book in self._bookList]}"
+    def __str__(self) -> str:
+        return f"Available books: {[str(book) for book in self.__booklist]}"
