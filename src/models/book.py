@@ -12,10 +12,6 @@ class Book:
     authors: List[str]
     language: List[str]
     first_publish_year: int
-    ebook_access: str
-
-    def is_available(self) -> bool:
-        return self.ebook_access != "no_ebook"
 
     def __str__(self) -> str:
         authors = ", ".join(self.authors)
