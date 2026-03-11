@@ -27,3 +27,9 @@ class LoanModel(db.Model):
             "return_date": self.return_date.isoformat() if self.return_date else None,
             "fine": self.fine,
         }
+
+    def update_from_dict(self, data: dict) -> None:
+        self.title = data["title"]
+        self.authors = data["authors"]
+        self.languages = data["languages"]
+        self.first_publish_year = data.get("first_publish_year")
