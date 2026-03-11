@@ -1,5 +1,6 @@
 # src/models/loan/loan_model.py
 from datetime import date
+
 from ..base import db
 
 
