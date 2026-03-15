@@ -1,5 +1,5 @@
 from requests import get
-from requests.exceptions import Timeout, ConnectionError, HTTPError
+from requests.exceptions import ConnectionError, HTTPError, Timeout
 
 BASE_URL = "https://openlibrary.org/"
 FIELDS = "key,title,author_name,cover_i,first_publish_year"
