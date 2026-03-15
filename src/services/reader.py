@@ -1,4 +1,5 @@
 from requests import get
+from requests.exceptions import Timeout, ConnectionError, HTTPError
 
 BASE_URL = "https://openlibrary.org/"
 FIELDS = "key,title,author_name,cover_i,first_publish_year"
@@ -23,8 +24,12 @@ class Reader:
             "limit": limit,
             "fields": FIELDS,
         }
-        response = get(BASE_URL + "search.json", params=params, timeout=10)
-        data = response.json()
+        try:
+            response = get(BASE_URL + "search.json", params=params, timeout=10)
+            data = response.json()
+        except (Timeout, ConnectionError, HTTPError):
+            # In caso di errore di rete restituiamo una lista vuota per evitare il crash del chiamante.
+            return []
 
         results = []
         for doc in data.get("docs", []):
