@@ -33,7 +33,9 @@ class LoanModel(db.Model):
             "member_id": self.member_id,
             "book_id": self.book_id,
             "loan_date": self.loan_date.isoformat() if self.loan_date else None,
+            "due_date": self.due_date.isoformat() if self.due_date else None,
             "return_date": self.return_date.isoformat() if self.return_date else None,
+            "fine": self.fine,
         }
 
     def update(self, **kwargs) -> None:
